@@ -2,7 +2,7 @@
 
 Joeslist is a web application written in python to demonstrate CRUD.
 
-## Featurs
+## Features
 
 All rubric requirements are met:
 
