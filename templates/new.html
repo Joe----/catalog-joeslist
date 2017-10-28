@@ -1,0 +1,50 @@
+{% extends "main.html" %}
+
+{# Put the flash message in the title of the page for better accessibility #}
+{% block title %}
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		{% for message in messages %}
+			{{ message }} -
+		{% endfor %}
+		{% endif %}
+	{% endwith %}
+  Add New Vehicle
+{% endblock %}
+
+{% block content %}
+
+<h1>Add a Vehicle to {{ category.name }}</h1>
+<p>* indicates required fields.</p>
+<form method = "POST" class="form-horizontal" action="{{url_for('newItem', category_id=category_id )}}">
+	<div class="form-group">
+			<label for="price" class="col-sm-2 control-label">Price*:</label>
+			<div class="col-sm-10"><input id="price" class="form-control" type="text" name="price" placeholder="10000" value=""/></div>
+	</div>
+	<div class="form-group">
+		<label for="year" class="col-sm-2 control-label">Year:</label>
+		<div class="col-sm-10"><input id="year" class="form-control" type="text" name="year" placeholder="2010" value=""/></div>
+	</div>
+	<div class="form-group">
+		<label for="make" class="col-sm-2 control-label">Make:</label>
+		<div class="col-sm-10"><input id="make" class="form-control" type="text" name="make" value=""/></div>
+	</div>
+	<div class="form-group">
+		<label for="model" class="col-sm-2 control-label">Model:</label>
+		<div class="col-sm-10"><input id="model" class="form-control" ="text" name="model" value=""/></div>
+	</div>
+	<div class="form-group">
+		<label for="miles" class="col-sm-2 control-label">Miles:</label>
+		<div class="col-sm-10"><input id="miles" class="form-control" type="text" name="miles" placeholder="30000" value=""/></div>
+	</div>
+	<div class="form-group">
+		<label for="desc" class="col-sm-2 control-label">Description:</label>
+		<div class="col-sm-10"><textarea id="desc" class="form-control" class="form-control" rows="3" name="description"></textarea></div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-9 col-sm-offset-2">
+			<input type='submit' value='Publish' class="btn btn-default">
+		</div>
+	</div>
+</form>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "main.html" %}
+
+{% block title %}
+	{{ category.name }} - Listings
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ category.name }}</h1>
+
+<div class="command">
+	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span><a href = '{{url_for('newItem', category_id = category.id) }}'>Add Vehicle	</a>
+</div>
+
+<div class = 'itemlist'>
+	<ul>
+		{% for i in items %}
+		<li>
+			<a href='{{url_for('showItem',category_id = category.id, item_id=i.id)}}'>
+				{{i.year}} {{i.make}} {{i.model}} {{format_price(i.price)}}</span></a>
+			{% if session.user_id == i.user_id %}
+			<span class="commandContainer">
+				<a href='{{url_for('showItem', category_id = category.id, item_id=i.id, edit=true)}}'><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Edit</a>
+				<a href='{{url_for('deleteItem', category_id = category.id, item_id=i.id)}}'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Delete Your Listing</a>
+			</span>
+			{% endif %}
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>{% block title %}{% endblock %}</title>
+		{% block script %}{% endblock %}
+		<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+		<link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+	</head>
+	<body>
+		<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<span class="navbar-brand">Joe's List</span>
+				</div>
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="{{url_for('showCategory')}}">Home</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+						{% if not session.username %}
+						<a id="signInOut" href="{{ url_for('showLogin') }}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Sign In</a>
+						<!--END GOOGLE PLUS SIGN IN BUTTON -->
+						{% else %}
+						<a id="signInOut" href="{{ url_for('gdisconnect') }}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Sign Out: {{session.username}}</a>
+						{% endif %}
+			</div>
+		</nav>
+		<div class="container">
+			<div class="row">
+				<div class="navside col-sm-3">
+					{% include 'nav.html' %}
+				</div>
+				<div class="maincontent col-sm-9" id="content" tabindex="-1">
+						<div class = "flash bg-info">
+							{% with messages = get_flashed_messages() %}
+							{% if messages %}
+								<ul>
+								{% for message in messages %}
+										<li>{{ message }}</li>
+								{% endfor %}
+								</ul>
+								{% endif %}
+							{% endwith %}
+						</div>
+						{% block content %}
+						{% endblock %}
+				</div>
+			</div>
+		</div>
+		<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+		<script src="//apis.google.com/js/platform.js?onload=start"></script>
+		<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+
+{% block title %}
+	Joes List
+{% endblock %}
+
+{% block content %}
+
+<h1>Joe's List</h1>
+<h2>10 Most Recent Additions</h2>
+
+<div class = 'itemlist'>
+	<ul>
+		{% for item in items %}
+		<li>
+			<a href='{{url_for('showItem',category_id = item.category.id, item_id=item.id)}}'>{{item.year}} {{item.make}} {{item.model}} {{format_price(item.price)}}</a>
+			<span class="meta">({{ item.date_added.strftime('%m/%d/%y') }})</span>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

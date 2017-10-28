@@ -1,0 +1,12 @@
+{% block sidenav %}
+<h2>Vehicle Class</h2>
+<div role="navigation">
+	<ul class="nav nav-pills nav-stacked">
+		{% for category in categorylist %}
+				<li {% if url_for('showItemList', category_id = category.id) == request.path %} class="active" {% endif %}>
+					<a href="{{url_for('showItemList', category_id = category.id)}}">{{category.name}}</a>
+				</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

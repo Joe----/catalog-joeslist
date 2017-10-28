@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+
+{# Put the flash message in the title of the page for better accessibility #}
+{% block title %}
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		{% for message in messages %}
+			{{ message }} -
+		{% endfor %}
+		{% endif %}
+	{% endwith %}
+  Delete {{ item.year }} {{ item.make }} {{ item.model }}
+{% endblock %}
+
+{% block content %}
+<h1> Please Confirm</h1>
+<p>Are you sure you want to delete this vehicle: {{ item.year }} {{ item.make }} {{ item.model }}?
+<form action="{{ url_for('deleteItem', category_id=item.category_id, item_id=item.id)}}" method = 'post'>
+  <input type="submit" value="Delete" class="btn btn-default">
+</form>
+<a href = "{{ url_for('showItemList', category_id = item.category_id)}}">Cancel </a>
+{% endblock %}
